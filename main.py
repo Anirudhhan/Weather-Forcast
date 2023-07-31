@@ -3,19 +3,19 @@ import plotly.express as px
 from backend import data
 from datetime import date, timedelta
 
-st.title('Weather Forcaste')
+st.title('Weather Forcast')
 
-place = st.text_input('Place:')
+place = st.text_input('Select a Location:')
 
 days = st.slider("Forcast Days", min_value=1,max_value=5,help="Select the number of days for which you want the forecast.")
 
-option = st.selectbox("select data to view", ('Tempterature','Sky'))
+option = st.selectbox("Select data to view", ('Tempterature','Sky'))
 
 
 if place:
-    st.subheader(f'{option} for the Next {days} days in {place}')
-    filter_data = data(place,days)
     try:
+        filter_data = data(place,days)
+        st.subheader(f'{option} for the Next {days} days in {place}')
         if option == 'Tempterature':
             temp = [dict['main']['temp']/10 for dict in filter_data]
             dates = [dict['dt_txt'] for dict in filter_data]
